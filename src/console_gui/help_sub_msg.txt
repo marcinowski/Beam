@@ -1,0 +1,7 @@
+Here's the list of supported commands:
+add          -add {object}
+list         -list existing {object}s
+delete       -delete {object}
+back         -back to main
+
+help         -shows this message

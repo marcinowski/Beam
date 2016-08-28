@@ -1,0 +1,16 @@
+Here's the list of supported commands:
+beam        -manage beam objects
+node        -manage node objects
+material    -manage materials
+section     -manage sections
+
+load        -manage loads
+support     -manage supports
+
+run         -runs calculations
+
+settings    -manage project settings
+
+help        -shows this message
+
+quit        -exits the program
