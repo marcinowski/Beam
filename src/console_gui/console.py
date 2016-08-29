@@ -1,10 +1,15 @@
 import os.path
+import re
 
 from src.models.beam import Beam
 from src.models.node import Node
 from src.models.material import Material
 from src.models.section import Section
+from src.models.load import Force, Momentum, UniformLoad
+from src.models.supports import Support, Joint
 from src.models.meta import ObjectDoesNotExist
+
+# TODO: Generic Sub Menus, Input class, FEM!, Settings
 
 
 class ConsoleMode(object):
@@ -26,7 +31,7 @@ class ConsoleMode(object):
             elif action == 'beam':
                 ConsoleBeamMenu().object_menu()
             elif action == 'load':
-                print("Under construction")
+                LoadMainMenu().menu()
             elif action == 'support':
                 print("Under construction")
             elif action == 'run':
@@ -78,6 +83,7 @@ class ConsoleObjectMenu(object):
             print('No {name}s to delete. Back to {name} Menu.'.format(name=self.obj.name))
             return
         while True:
+            print('***{name} Delete Menu***'.format(name=self.obj.name))
             print("Type _id of the {name} to be removed, 'list' or 'back' to cancel".format(name=self.obj.name))
             action = input('')
             if action == 'back':
@@ -103,8 +109,54 @@ class ConsoleObjectMenu(object):
         pass
 
     @staticmethod
-    def _value_input(msg):
-        return input(msg+' :')
+    def _value_input(pattern, msg, _type, warn):
+        # fixme: maybe make a class out of inputs? many options-positive, lt_one etc.
+        while True:
+            action = input(msg+' :')
+            if re.search(pattern, action):
+                return _type(action)
+            else:
+                print(warn)
+
+    def _int_value_input(self, msg):
+        self._value_input(
+            pattern=r'^-?[0-9]+$',
+            msg=msg,
+            _type=int,
+            warn="Input should be a whole number!"
+        )
+
+    def _string_value_input(self, msg):
+        self._value_input(
+            pattern=r'^[a-zA-Z][a-zA-Z1-9]+$',
+            msg=msg,
+            _type=str,
+            warn="Input should start with a letter, and should not contain spaces or special signs!"
+        )
+
+    def _float_value_input(self, msg):
+        self._value_input(
+            pattern=r'^-?[0-9]+.[0-9]+$',
+            msg=msg,
+            _type=float,
+            warn="Number must be decimal!"
+        )
+
+    def _float_value_lt_one_input(self, msg):
+        self._value_input(
+            pattern=r'^0.[0-9]+$',
+            msg=msg,
+            _type=float,
+            warn="Number must be decimal less then one and greater than 0!"
+        )
+
+    def _bool_value_input(self, msg):  # fixme: this is wrong, should take yes/no, then convert to True/False
+        self._value_input(
+            pattern=r'^[tT]rue$',
+            msg=msg,
+            type=bool,
+            warn="Number must be decimal less then one and greater than 0!"
+        )
 
 
 class ConsoleNodeMenu(ConsoleObjectMenu):
@@ -113,8 +165,8 @@ class ConsoleNodeMenu(ConsoleObjectMenu):
 
     def _add_object(self):
         Node.get_or_create(
-            x=self._value_input('x'),
-            y=self._value_input('y')
+            x=self._float_value_input('x'),
+            y=self._float_value_input('y')
         )
 
 
@@ -124,9 +176,9 @@ class ConsoleSectionMenu(ConsoleObjectMenu):
 
     def _add_object(self):
         Section.get_or_create(
-            name=self._value_input('Name'),
-            area=self._value_input('Area'),
-            inertia=self._value_input('Inertia')
+            name=self._string_value_input('Name'),
+            area=self._float_value_input('Area'),
+            inertia=self._float_value_input('Inertia')
         )
 
 
@@ -136,9 +188,9 @@ class ConsoleMaterialMenu(ConsoleObjectMenu):
 
     def _add_object(self):
         Material.get_or_create(
-            name=self._value_input('Name'),
-            young=self._value_input("Young's module"),
-            poisson=self._value_input("Poisson's constant")
+            name=self._string_value_input('Name'),
+            young=self._float_value_input("Young's module"),
+            poisson=self._float_value_lt_one_input("Poisson's constant")
         )
 
 
@@ -151,14 +203,14 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
         self.section = None
 
     def _add_object(self):
-        print('Step 1: Select or create first Node:')
-        self.start_node = self._select_or_create_obj(Node, ConsoleNodeMenu)
-        print('Step 2: Select or create second Node:')
-        self.end_node = self._select_or_create_obj(Node, ConsoleNodeMenu)
-        print('Step 3: Select or create Material:')
-        self.material = self._select_or_create_obj(Material, ConsoleMaterialMenu)
-        print('Step 4: Select or create Section:')
-        self.section = self._select_or_create_obj(Section, ConsoleSectionMenu)
+        msg = 'Step 1: Select or create first Node:'
+        self.start_node = self._select_or_create_obj(Node, ConsoleNodeMenu, msg)
+        msg = 'Step 2: Select or create second Node:'
+        self.end_node = self._select_or_create_obj(Node, ConsoleNodeMenu, msg)
+        msg = 'Step 3: Select or create Material:'
+        self.material = self._select_or_create_obj(Material, ConsoleMaterialMenu, msg)
+        msg = 'Step 4: Select or create Section:'
+        self.section = self._select_or_create_obj(Section, ConsoleSectionMenu, msg)
         Beam.get_or_create(
             start_node=self.start_node,
             end_node=self.end_node,
@@ -167,11 +219,12 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
         )
 
     @staticmethod
-    def _select_or_create_obj(obj, obj_manager):
+    def _select_or_create_obj(obj, obj_manager, message):
         while True:
+            print(message)
             ConsolePrintOut().print_model(obj)
             print(
-                "Type _id of the {name} to be selected, 'manage' to go to manager, 'back' to cancel"
+                "Type _id of the {name} to be selected, 'manage' to go to manager."
                 .format(name=obj.name)
             )
             action = input('')
@@ -189,7 +242,137 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
                     return obj_selected
 
 
-class ConsoleSettingsMenu(object):
+class LoadTemplateMenu(ConsoleObjectMenu):
+    @staticmethod
+    def _select_obj(obj):
+        ConsolePrintOut().print_model(obj)
+        while True:
+            print("Type _id of the {name} to be selected, 'list' to list the {name}s".format(name=obj.name))
+            action = input('')
+            if action == 'list':
+                ConsolePrintOut().print_model(obj)
+            else:
+                try:
+                    obj_selected = obj.get_obj_by_params(_id=int(action))
+                except ObjectDoesNotExist:
+                    print("Wrong id! Try again or 'back' to cancel")
+                except ValueError:
+                    print("Wrong id! Try again or 'back' to cancel")
+                else:
+                    print("{name} was selected!".format(name=str(obj_selected)))
+                    return obj_selected
+
+
+class ForceMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Force
+
+    def _add_object(self):
+        Force.get_or_create(
+            node=self._select_obj(Node),
+            mgn_x=self._float_value_input('Magnitude x'),
+            mgn_y=self._float_value_input('Magnitude y')
+        )
+
+
+class MomentumMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Momentum
+
+    def _add_object(self):
+        Momentum.get_or_create(
+            node=self._select_obj(Node),
+            value=self._float_value_input('Momentum value'),
+        )
+
+
+class UniformLoadMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = UniformLoad
+
+    def _add_object(self):
+        UniformLoad.get_or_create(
+            beam=self._select_obj(Beam),
+            mgn_x=self._float_value_input('Magnitude x'),
+            mgn_y=self._float_value_input('Magnitude y')
+        )
+
+
+class LoadMainMenu(object):  # fixme: convert to generic sub-menu
+    def menu(self):
+        while True:
+            print('***Load Menu***')
+            print("Manage entities 'force', 'momentum', 'uniform' or 'back' to main.")
+            action = input('')
+            if action == 'force':
+                ForceMenu().object_menu()
+            elif action == 'momentum':
+                MomentumMenu().object_menu()
+            elif action == 'uniform':
+                UniformLoadMenu().object_menu()
+            elif action == 'back':
+                return
+            elif action == 'help':
+                self._view_help()
+            else:
+                print("Unknown command. Type 'help' for the list of available options.")
+
+    @staticmethod
+    def _view_help():
+        with open(os.path.dirname(__file__) + '\\help_load_msg.txt', 'r') as f:
+            print(f.read())
+
+
+class SupportMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Support
+
+    def _add_object(self):
+        Support.get_or_create(
+            node=self._select_obj(Node),
+            x=self._bool_value_input(''),  # fixme: this should take boolean
+            y=self._bool_value_input(''),
+            rot=self._bool_value_input('')
+        )
+
+
+class JointMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Joint
+
+    def _add_object(self):
+        Joint.get_or_create(
+            node=self._select_obj(Node),
+            x=self._bool_value_input(''),  # fixme: this should take boolean
+            y=self._bool_value_input(''),
+            rot=self._bool_value_input('')
+        )
+
+
+class ConsoleSupportMainMenu(object):  # fixme: convert to generic sub-menu
+    def menu(self):
+        while True:
+            print('***Support Main Menu***')
+            print("Manage entities 'support', 'joint', or 'back' to main.")
+            action = input('')
+            if action == 'support':
+                SupportMenu().object_menu()
+            elif action == 'joint':
+                JointMenu().object_menu()
+            elif action == 'back':
+                return
+            elif action == 'help':
+                self._view_help()
+            else:
+                print("Unknown command. Type 'help' for the list of available options.")
+
+    @staticmethod
+    def _view_help():
+        with open(os.path.dirname(__file__) + '\\help_supp_msg.txt', 'r') as f:
+            print(f.read())
+
+
+class ConsoleSettingsMenu(object):  # fixme: convert to generic sub-menu
     def settings_menu(self):
         print("Under construction.")
 

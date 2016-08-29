@@ -1,4 +1,4 @@
-from .meta import Base
+from src.models.meta import Base
 
 
 class Section(Base):
@@ -15,4 +15,4 @@ class Section(Base):
         self.inertia = inertia
 
     def __repr__(self):
-        return 'Section {} - E: {}, v: {}'.format(self.name, self.area, self.inertia)
+        return 'Section {} - area: {}, inertia: {}'.format(self.name, self.area, self.inertia)

@@ -1,4 +1,4 @@
-from .meta import Base, ObjectDoesNotExist
+from src.models.meta import Base, ObjectDoesNotExist
 
 
 class Node(Base):
@@ -12,7 +12,6 @@ class Node(Base):
         """
         Node.objects.append(self)
         self._id = len(Node.objects)
-        # self.coordinates = Base.coords(x, y)
         self.x = x
         self.y = y
 

@@ -1,0 +1,7 @@
+Here's the list of supported commands:
+force        -manage Concenctrated Forces
+momentum     -manage Momentums
+uniform      -manage Uniform Loads
+back         -back to main
+
+help         -shows this message

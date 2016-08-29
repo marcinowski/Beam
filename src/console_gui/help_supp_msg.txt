@@ -1,0 +1,6 @@
+Here's the list of supported commands:
+support      -manage supports
+joint        -manage joints
+back         -back to main
+
+help         -shows this message

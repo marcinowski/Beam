@@ -1,4 +1,4 @@
-from .meta import Base
+from src.models.meta import Base
 
 
 class Material(Base):
