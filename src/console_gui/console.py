@@ -7,12 +7,17 @@ from src.models.material import Material
 from src.models.section import Section
 from src.models.load import Force, Momentum, UniformLoad
 from src.models.supports import Support, Joint
+from src.models.settings import Settings
 from src.models.meta import ObjectDoesNotExist
 
-# TODO: Generic Sub Menus, Input class, FEM!, Settings
+# TODO: FEM!, Settings
+# FIXME: Boolean input field: bool('false') doesn't evaluate to False!! Dumbass
 
 
 class ConsoleMode(object):
+    def __init__(self):
+        Settings()
+
     def run(self):
         print("Type 'help' for the list of available options.")
         while True:
@@ -31,13 +36,13 @@ class ConsoleMode(object):
             elif action == 'beam':
                 ConsoleBeamMenu().object_menu()
             elif action == 'load':
-                LoadMainMenu().menu()
+                LoadMainMenu().sub_menu()
             elif action == 'support':
-                print("Under construction")
+                ConsoleSupportMainMenu().sub_menu()
             elif action == 'run':
                 print("Under construction")
             elif action == 'settings':
-                ConsoleSettingsMenu().settings_menu()
+                ConsoleSettingsMenu().sub_menu()
             else:
                 print("Unknown command. Type 'help' for the list of available options.")
 
@@ -85,7 +90,7 @@ class ConsoleObjectMenu(object):
         while True:
             print('***{name} Delete Menu***'.format(name=self.obj.name))
             print("Type _id of the {name} to be removed, 'list' or 'back' to cancel".format(name=self.obj.name))
-            action = input('')
+            action = input('>>')
             if action == 'back':
                 return
             elif action == 'list':
@@ -119,7 +124,7 @@ class ConsoleObjectMenu(object):
                 print(warn)
 
     def _int_value_input(self, msg):
-        self._value_input(
+        return self._value_input(
             pattern=r'^-?[0-9]+$',
             msg=msg,
             _type=int,
@@ -127,35 +132,35 @@ class ConsoleObjectMenu(object):
         )
 
     def _string_value_input(self, msg):
-        self._value_input(
-            pattern=r'^[a-zA-Z][a-zA-Z1-9]+$',
+        return self._value_input(
+            pattern=r'^[a-zA-Z][a-zA-Z1-9_]+$',
             msg=msg,
             _type=str,
             warn="Input should start with a letter, and should not contain spaces or special signs!"
         )
 
     def _float_value_input(self, msg):
-        self._value_input(
-            pattern=r'^-?[0-9]+.[0-9]+$',
+        return self._value_input(
+            pattern=r'^-?[0-9]+(\.[0-9]{0,2})?$',
             msg=msg,
             _type=float,
-            warn="Number must be decimal!"
+            warn="Number must be whole or decimal up to 2 decimal places!"
         )
 
     def _float_value_lt_one_input(self, msg):
-        self._value_input(
-            pattern=r'^0.[0-9]+$',
+        return self._value_input(
+            pattern=r'^0.[0-9]{1,2}$',
             msg=msg,
             _type=float,
-            warn="Number must be decimal less then one and greater than 0!"
+            warn="Number must be decimal up to 2 decimal places between 0 and 1!"
         )
 
-    def _bool_value_input(self, msg):  # fixme: this is wrong, should take yes/no, then convert to True/False
-        self._value_input(
-            pattern=r'^[tT]rue$',
+    def _bool_value_input(self, msg):
+        return self._value_input(
+            pattern=r'^((?i)[t](rue)?)|((?i)[f](alse)?)$',
             msg=msg,
-            type=bool,
-            warn="Number must be decimal less then one and greater than 0!"
+            _type=bool,
+            warn="You should type '(t)rue' or '(f)alse'"
         )
 
 
@@ -227,7 +232,7 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
                 "Type _id of the {name} to be selected, 'manage' to go to manager."
                 .format(name=obj.name)
             )
-            action = input('')
+            action = input('>>')
             if action == 'manage':
                 obj_manager().object_menu()
             else:
@@ -248,7 +253,7 @@ class LoadTemplateMenu(ConsoleObjectMenu):
         ConsolePrintOut().print_model(obj)
         while True:
             print("Type _id of the {name} to be selected, 'list' to list the {name}s".format(name=obj.name))
-            action = input('')
+            action = input('>>')
             if action == 'list':
                 ConsolePrintOut().print_model(obj)
             else:
@@ -298,12 +303,50 @@ class UniformLoadMenu(LoadTemplateMenu):
         )
 
 
-class LoadMainMenu(object):  # fixme: convert to generic sub-menu
-    def menu(self):
+class SupportMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Support
+
+    def _add_object(self):
+        print("### Type 'true' or 'false' to BLOCK the following directions. ###")
+        Support.get_or_create(
+            node=self._select_obj(Node),
+            x=self._bool_value_input('Direction x'),
+            y=self._bool_value_input('Direction y'),
+            rot=self._bool_value_input('Rotation')
+        )
+
+
+class JointMenu(LoadTemplateMenu):
+    def __init__(self):
+        self.obj = Joint
+
+    def _add_object(self):
+        print("### Type 'true' or 'false' to RELEASE the following directions. ###")
+        Joint.get_or_create(
+            node=self._select_obj(Node),
+            x=self._bool_value_input('Direction x'),
+            y=self._bool_value_input('Direction y'),
+            rot=self._bool_value_input('Rotation')
+        )
+
+
+class SubMenu(object):
+    def sub_menu(self):
+        pass
+
+    @staticmethod
+    def _view_help(help_path):
+        with open(os.path.dirname(__file__) + help_path, 'r') as f:
+            print(f.read())
+
+
+class LoadMainMenu(SubMenu):
+    def sub_menu(self):
         while True:
             print('***Load Menu***')
             print("Manage entities 'force', 'momentum', 'uniform' or 'back' to main.")
-            action = input('')
+            action = input('>>')
             if action == 'force':
                 ForceMenu().object_menu()
             elif action == 'momentum':
@@ -313,48 +356,17 @@ class LoadMainMenu(object):  # fixme: convert to generic sub-menu
             elif action == 'back':
                 return
             elif action == 'help':
-                self._view_help()
+                self._view_help('\\help_load_msg.txt')
             else:
                 print("Unknown command. Type 'help' for the list of available options.")
 
-    @staticmethod
-    def _view_help():
-        with open(os.path.dirname(__file__) + '\\help_load_msg.txt', 'r') as f:
-            print(f.read())
 
-
-class SupportMenu(LoadTemplateMenu):
-    def __init__(self):
-        self.obj = Support
-
-    def _add_object(self):
-        Support.get_or_create(
-            node=self._select_obj(Node),
-            x=self._bool_value_input(''),  # fixme: this should take boolean
-            y=self._bool_value_input(''),
-            rot=self._bool_value_input('')
-        )
-
-
-class JointMenu(LoadTemplateMenu):
-    def __init__(self):
-        self.obj = Joint
-
-    def _add_object(self):
-        Joint.get_or_create(
-            node=self._select_obj(Node),
-            x=self._bool_value_input(''),  # fixme: this should take boolean
-            y=self._bool_value_input(''),
-            rot=self._bool_value_input('')
-        )
-
-
-class ConsoleSupportMainMenu(object):  # fixme: convert to generic sub-menu
-    def menu(self):
+class ConsoleSupportMainMenu(SubMenu):
+    def sub_menu(self):
         while True:
             print('***Support Main Menu***')
             print("Manage entities 'support', 'joint', or 'back' to main.")
-            action = input('')
+            action = input('>>')
             if action == 'support':
                 SupportMenu().object_menu()
             elif action == 'joint':
@@ -362,19 +374,27 @@ class ConsoleSupportMainMenu(object):  # fixme: convert to generic sub-menu
             elif action == 'back':
                 return
             elif action == 'help':
-                self._view_help()
+                self._view_help('\\help_supp_msg.txt')
             else:
                 print("Unknown command. Type 'help' for the list of available options.")
 
-    @staticmethod
-    def _view_help():
-        with open(os.path.dirname(__file__) + '\\help_supp_msg.txt', 'r') as f:
-            print(f.read())
 
-
-class ConsoleSettingsMenu(object):  # fixme: convert to generic sub-menu
-    def settings_menu(self):
-        print("Under construction.")
+class ConsoleSettingsMenu(SubMenu):
+    def sub_menu(self):
+        while True:
+            print('***Settings Menu***')
+            print("'Show' or 'edit' settings.")
+            action = input('>>')
+            if action == 'show':
+                ConsolePrintOut().print_model(Settings)
+            elif action == 'edit':
+                pass
+            elif action == 'back':
+                return
+            elif action == 'help':
+                pass
+            else:
+                print("Unknown command. Type 'help' for the list of available options.")
 
     def list(self):
         pass

@@ -16,7 +16,7 @@ class Node(Base):
         self.y = y
 
     def __repr__(self):
-        return 'Node at (x,y) = ({},{})'.format(self.x, self.y)
+        return 'Node at (x,y) = ({}, {})'.format(self.x, self.y)
 
     @classmethod
     def get_node_by_id(cls, obj_id):

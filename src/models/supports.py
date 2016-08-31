@@ -2,10 +2,12 @@ from src.models.meta import Base
 
 
 class Support(Base):
-    object = []
+    objects = []
     name = 'Support'
 
     def __init__(self, node=None, x=None, y=None, rot=None):
+        Support.objects.append(self)
+        self._id = len(Support.objects)
         self.node = node
         self.x = x
         self.y = y
@@ -17,10 +19,12 @@ class Support(Base):
 
 
 class Joint(Base):
-    object = []
+    objects = []
     name = 'Joint'
 
     def __init__(self, node=None, x=None, y=None, rot=None):
+        Joint.objects.append(self)
+        self._id = len(Joint.objects)
         self.node = node
         self.x = x
         self.y = y
