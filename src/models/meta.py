@@ -30,7 +30,7 @@ class Base(metaclass=Meta):
         cls.objects.remove(instance)
         cls._sort_global_ids()
 
-    def _modify_parameters(self, **kwargs):
+    def modify_parameters(self, **kwargs):
         """ Method for modifying given parameters
         """
         for key, value in kwargs.items():
