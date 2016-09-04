@@ -74,14 +74,13 @@ class ConsoleInputs(ConsolePrints):
 
 
 class TemplateMenu(ConsoleInputs, ConsolePrints):
-    @staticmethod
-    def _view_help(help_path):
+    def _view_help(self, help_path):
         with open(os.path.dirname(__file__) + help_path, 'r') as f:
             print(f.read())
 
 
 class ConsoleObjectMenu(TemplateMenu):
-    """This is a skeleton for other model menus"""
+    """This is a template for other model menus"""
     obj = None
 
     def object_menu(self):

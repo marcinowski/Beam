@@ -8,7 +8,7 @@ from src.models.supports import Support, Joint
 from src.models.settings import Settings
 from src.models.meta import ObjectDoesNotExist
 
-# TODO: FEM!, README.md
+# TODO: FEM! editing models could be useful (to think about..)
 
 
 class ConsoleMode(TemplateMenu):
@@ -92,7 +92,7 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
         msg = 'Step 1: Select or create first Node:'
         self.start_node = self._select_or_create_obj(Node, ConsoleNodeMenu, msg)
         msg = 'Step 2: Select or create second Node:'
-        self.end_node = self._select_or_create_obj(Node, ConsoleNodeMenu, msg)
+        self.end_node = self._select_or_create_obj(Node, ConsoleNodeMenu, msg, self.start_node)
         msg = 'Step 3: Select or create Material:'
         self.material = self._select_or_create_obj(Material, ConsoleMaterialMenu, msg)
         msg = 'Step 4: Select or create Section:'
@@ -104,7 +104,7 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
             section=self.section
         )
 
-    def _select_or_create_obj(self, obj, obj_manager, message):
+    def _select_or_create_obj(self, obj, obj_manager, message, duplicate_check=None):
         while True:
             self.print_help(message)
             ConsolePrintOut().print_model(obj)
@@ -123,8 +123,11 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
                 except ValueError:
                     self.print_warn("Wrong id! Try again or 'back' to cancel")
                 else:
-                    self.print_info("{name} was selected!".format(name=str(obj_selected)))
-                    return obj_selected
+                    if obj_selected != duplicate_check:
+                        self.print_info("{name} was selected!".format(name=str(obj_selected)))
+                        return obj_selected
+                    else:
+                        self.print_error("You have already selected this {name}".format(name=obj.name))
 
 
 class LoadTemplateMenu(ConsoleObjectMenu):
