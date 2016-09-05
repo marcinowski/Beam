@@ -23,10 +23,10 @@ class MatrixOperations(object):
         if t_1 == list:
             return Matrix([[i] for i in m_1])
         if t_1 == Matrix:
-            # if len(m_1[0]) == 1:
-            #     return [m_1[i][0] for i in range(len(m_1))]
-            # else:
-            return Matrix([[m_1[i][j] for i in range(len(m_1))] for j in range(len(m_1[0]))])
+            if len(m_1[0]) == 1:
+                return [m_1[i][0] for i in range(len(m_1))]
+            else:
+                return Matrix([[m_1[i][j] for i in range(len(m_1))] for j in range(len(m_1[0]))])
 
     def multiply(self, m_1, m_2):
         t_1, t_2 = type(m_1), type(m_2)
@@ -35,11 +35,12 @@ class MatrixOperations(object):
         if t_1 in [int, float]:
             return self._scalar_multiplication(m_1, m_2_t)
         elif t_1 == list:
-            return [sum([j*k for j, k in zip(m_1, i)]) for i in m_2_t]
+            if type(m_2_t) == list:
+                return sum([i*j for i, j in zip(m_1, m_2_t)])
+            else:
+                return [sum([j*k for j, k in zip(m_1, i)]) for i in m_2_t]
         elif t_1 == Matrix:
-            # pass
-            # return Matrix([sum((j*k for j, k in zip(m, n))) for m, n in zip(m_1, m_2_t)])
-            return Matrix([[self.multiply(i, self.transpose(j))[0] for j in m_2_t] for i in m_1])
+            return Matrix([[self.multiply(i, self.transpose(j)) for j in m_2_t] for i in m_1])
 
     @staticmethod
     def _scalar_multiplication(m_1, m_2):

@@ -78,7 +78,7 @@ class TestMultiplicationOperation(TestCase):
         self.assertEqual(MOps()._scalar_multiplication(2, self.v_1), [0, 4])
 
     def test_vector_multiplication(self):
-        expected = [6]
+        expected = 6
         self.assertEqual(MOps().multiply(self.v_1, self.v_2), expected)
 
     def test_matrix_multiplication(self):
