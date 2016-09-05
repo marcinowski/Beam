@@ -46,28 +46,42 @@ class TestAddingOperations(TestCase):
 class TestTransposeOperation(TestCase):
     def setUp(self):
         self.m_1 = Matrix([[0, 1],
-                    [1, 2],
-                    [3, 4]])
+                           [1, 2],
+                           [3, 4]])
         self.v_1 = [0, 2, 3]
 
     def test_vector_transposition(self):
-        expected = [[0], [2], [3]]
+        expected = Matrix([[0], [2], [3]])
         self.assertEqual(MOps().transpose(self.v_1), expected)
+        self.assertEqual(MOps().transpose(expected), self.v_1)
 
     def test_matrix_transposition(self):
         expected = Matrix([[0, 1, 3],
                            [1, 2, 4]])
         self.assertEqual(MOps().transpose(self.m_1), expected)
+        self.assertEqual(MOps().transpose(expected), self.m_1)
 
 
 class TestMultiplicationOperation(TestCase):
     def setUp(self):
-        self.m_1 = [[0, 1],
-                    [2, 3]]
+        self.m_1 = Matrix([[0, 1],
+                           [2, 3]])
+        self.m_2 = Matrix([[0, 1],
+                           [2, 4]])
         self.v_1 = [0, 2]
+        self.v_2 = Matrix([[1], [3]])  # transposed
 
     def test_scalar_multiplication(self):
         expected = [[0, 2],
                     [4, 6]]
         self.assertEqual(MOps()._scalar_multiplication(2, self.m_1), expected)
         self.assertEqual(MOps()._scalar_multiplication(2, self.v_1), [0, 4])
+
+    def test_vector_multiplication(self):
+        expected = [6]
+        self.assertEqual(MOps().multiply(self.v_1, self.v_2), expected)
+
+    def test_matrix_multiplication(self):
+        expected = Matrix([[2, 4],
+                           [6, 14]])
+        self.assertEqual(MOps().multiply(self.m_1, self.m_2), expected)

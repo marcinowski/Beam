@@ -22,19 +22,24 @@ class MatrixOperations(object):
         t_1 = type(m_1)
         if t_1 == list:
             return Matrix([[i] for i in m_1])
-        if t_1 == Matrix:  # fixme
-            return Matrix([[i for i in m_1[m][n]] for n, m in zip(range(m_1.dim()[0]), range(m_1.dim()[1]))])
+        if t_1 == Matrix:
+            # if len(m_1[0]) == 1:
+            #     return [m_1[i][0] for i in range(len(m_1))]
+            # else:
+            return Matrix([[m_1[i][j] for i in range(len(m_1))] for j in range(len(m_1[0]))])
 
     def multiply(self, m_1, m_2):
         t_1, t_2 = type(m_1), type(m_2)
         self._check_multiply_matching(m_1, m_2, t_1, t_2)
         m_2_t = self.transpose(m_2)
-        if type(m_1) in [int, float]:
+        if t_1 in [int, float]:
             return self._scalar_multiplication(m_1, m_2_t)
-        elif type(m_1) == list:
+        elif t_1 == list:
             return [sum([j*k for j, k in zip(m_1, i)]) for i in m_2_t]
-        elif type(m_1) == Matrix:
-            return Matrix([sum([j*k for j, k in zip(m, n)]) for m, n in zip(m_1, m_2_t)])
+        elif t_1 == Matrix:
+            # pass
+            # return Matrix([sum((j*k for j, k in zip(m, n))) for m, n in zip(m_1, m_2_t)])
+            return Matrix([[self.multiply(i, self.transpose(j))[0] for j in m_2_t] for i in m_1])
 
     @staticmethod
     def _scalar_multiplication(m_1, m_2):
@@ -49,7 +54,7 @@ class MatrixOperations(object):
             if len(m_1) != len(m_2):
                 raise MultiplicationError
         elif t_1 == Matrix and t_2 == Matrix:
-            if m_1.dim != m_2.dim[::-1]:
+            if m_1.dim() != m_2.dim()[::-1]:
                 raise MultiplicationError
         elif t_1 not in [Matrix, list, int, float] and t_2 not in [Matrix, list]:
             raise TypeError
