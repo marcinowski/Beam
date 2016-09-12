@@ -97,3 +97,16 @@ class TestMultiplicationOperation(TestCase):
         self.assertEqual(MOps().multiply(self.m_3, self.m_4), expected)
         with self.assertRaises(MultiplicationError):
             MOps().multiply(self.m_2, self.m_4)
+
+
+class TestCholeskyDecomposition(TestCase):
+    def test_cholesky(self):
+        matrix = Matrix([[1, 1, 1, 1],
+                        [1, 5, 5, 5],
+                        [1, 5, 14, 14],
+                        [1, 5, 14, 14]])
+        expected = Matrix([[1, 1, 1, 1],
+                           [0, 2, 2, 2],
+                           [0, 0, 3, 3],
+                           [0, 0, 0, 1]])
+        self.assertEqual(expected, MOps().cholesky(matrix))
