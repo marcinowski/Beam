@@ -46,10 +46,46 @@ class MatrixOperations(object):
             raise TypeError
 
     def cholesky(self, matrix):
-        pass
+        l_up = []
+        for i, _ in enumerate(matrix):
+            l_up.append([0]*i)
+            try:
+                l_up[i].append([(matrix[i][i] - sum([l_up[k][i]**2 for k in range(1, i)]))])
+            except KeyError:
+                pass
+            try:
+                l_up[i].append([
+                    (
+                        matrix[i][j]
+                        - sum([l_up[k][i]*l_up[i][k] for k in range(1, i)])
+                    )/l_up[i][i]
+                    for j in range(i, len(matrix))
+                ]
+            )
+            except KeyError:
+                pass
+
+        l_up = [  # fixme: convert it to normall loop, this enables "atomic" transaction
+            (
+                [0]*i
+                + [(matrix[i][i] - sum([l_up[k][i]**2 for k in range(1, i)]))]
+                + [
+                    (
+                        matrix[i][j]
+                        - sum([l_up[k][i]*l_up[i][k] for k in range(1, i)])
+                    )/l_up[i][i]
+                    for j in range(i, len(matrix))
+                ]
+            ) for i, _ in enumerate(matrix)
+        ]
+        return l_up
 
     def reverse(self, matrix):
         pass
+
+    @staticmethod
+    def _check_if_matrix_is_square(matrix):
+        return len(matrix) == len(matrix[0])
 
     @staticmethod
     def _scalar_multiplication(c, matrix):
