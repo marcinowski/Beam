@@ -105,8 +105,22 @@ class TestCholeskyDecomposition(TestCase):
                         [1, 5, 5, 5],
                         [1, 5, 14, 14],
                         [1, 5, 14, 14]])
-        expected = Matrix([[1, 1, 1, 1],
-                           [0, 2, 2, 2],
-                           [0, 0, 3, 3],
-                           [0, 0, 0, 1]])
-        self.assertEqual(expected, MOps().cholesky(matrix))
+        expected = Matrix([[1, 0, 0, 0],
+                           [1, 2, 0, 0],
+                           [1, 2, 3, 0],
+                           [1, 2, 3, 1]])
+        self.assertEqual(expected, MOps().cholesky_ldl(matrix))
+
+
+class TestCholeskyLDL(TestCase):
+    def test_cholesky_ldl(self):
+        matrix = Matrix([[1, 1, 1, 1],
+                        [1, 5, 5, 5],
+                        [1, 5, 14, 14],
+                        [1, 5, 14, 14]])
+        l_down = MOps().cholesky_ldl(matrix)['l_down']
+        diag = MOps().cholesky_ldl(matrix)['diag']
+        l_up = MOps().transpose(l_down)
+        ld = MOps().multiply(l_up, diag)
+        ldl = MOps().multiply(ld, l_down)
+        self.assertEqual(ldl, matrix)

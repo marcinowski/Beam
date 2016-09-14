@@ -45,61 +45,23 @@ class MatrixOperations(object):
         else:
             raise TypeError
 
-    def cholesky(self, matrix):
-        l_up = []
-        for i, _ in enumerate(matrix):
-            l_up.append([0]*i)
-            try:
-                l_up[i].append((matrix[i][i] - sum([l_up[k][i]**2 for k in range(1, i)]))**0.5)
-            except IndexError:
-                pass
-            for j in range(i, len(matrix)):
-                try:
-                    l_up[i].append(
-                        (
-                            matrix[i][j]
-                            - sum([l_up[k][i]*l_up[i][k] for k in range(1, j)])
-                        )/l_up[i][i]
-                )
-                except IndexError:
-                    pass  # boo!
-
-        # l_up = [  # fixme: convert it to normall loop, this enables "atomic" transaction
-        #     (
-        #         [0]*i
-        #         + [(matrix[i][i] - sum([l_up[k][i]**2 for k in range(1, i)]))]
-        #         + [
-        #             (
-        #                 matrix[i][j]
-        #                 - sum([l_up[k][i]*l_up[i][k] for k in range(1, i)])
-        #             )/l_up[i][i]
-        #             for j in range(i, len(matrix))
-        #         ]
-        #     ) for i, _ in enumerate(matrix)
-        # ]
-        return l_up
-
     def cholesky_ldl(self, matrix):
-        l_up = []
+        l_down = []
         diag = []
-        for i, _ in enumerate(matrix):
-            l_up.append([1])
-            try:
-                diag.append(matrix[i][i] - sum([l_up[k][i]**2*diag[i] for k in range(1, i)]))
-            except IndexError:
-                pass  # boo!
-            for j in range(i, len(matrix)):
-                try:
-                    l_up[i].append(
-                        (
-                            matrix[i][j]
-                            - sum([l_up[k][i]*l_up[i][k] for k in range(1, j)])
-                        )/diag[i]
+        dim = len(matrix)
+        for i in range(dim):
+            l_down.append([])
+            diag.append([0]*i)
+            for j in range(i):
+                l_down[i].append(
+                    (matrix[i][j] - sum([l_down[i][k] * l_down[j][k] * diag[k][k] for k in range(j)])) / diag[j][j]
                 )
-                except IndexError:
-                    pass  # boo!
-
-
+            l_down[i].append(1)
+            diag[i].append(matrix[i][i] - sum((diag[k][k] * l_down[i][k] ** 2) for k in range(i)))
+            for j in range(i, dim-1):
+                l_down[i].append(0)
+                diag[i].append(0)
+        return {'l_down': Matrix(l_down), 'diag': Matrix(diag)}
 
     def reverse(self, matrix):
         pass
