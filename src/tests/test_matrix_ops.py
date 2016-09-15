@@ -1,4 +1,4 @@
-from unittest import TestCase, main
+from unittest import TestCase
 from src.fem.matrix_ops import Matrix, AdditionError, MultiplicationError
 from src.fem.matrix_ops import MatrixOperations as MOps
 
@@ -99,28 +99,27 @@ class TestMultiplicationOperation(TestCase):
             MOps().multiply(self.m_2, self.m_4)
 
 
-class TestCholeskyDecomposition(TestCase):
-    def test_cholesky(self):
-        matrix = Matrix([[1, 1, 1, 1],
-                        [1, 5, 5, 5],
-                        [1, 5, 14, 14],
-                        [1, 5, 14, 14]])
-        expected = Matrix([[1, 0, 0, 0],
-                           [1, 2, 0, 0],
-                           [1, 2, 3, 0],
-                           [1, 2, 3, 1]])
-        self.assertEqual(expected, MOps().cholesky_ldl(matrix))
-
-
 class TestCholeskyLDL(TestCase):
     def test_cholesky_ldl(self):
         matrix = Matrix([[1, 1, 1, 1],
-                        [1, 5, 5, 5],
-                        [1, 5, 14, 14],
-                        [1, 5, 14, 14]])
+                         [1, 5, 5, 5],
+                         [1, 5, 14, 14],
+                         [1, 5, 14, 14]])
         l_down = MOps().cholesky_ldl(matrix)['l_down']
         diag = MOps().cholesky_ldl(matrix)['diag']
         l_up = MOps().transpose(l_down)
-        ld = MOps().multiply(l_up, diag)
-        ldl = MOps().multiply(ld, l_down)
+        ld = MOps().multiply(l_down, diag)
+        ldl = MOps().multiply(ld, l_up)
         self.assertEqual(ldl, matrix)
+
+    def test_cholesky_ldl_2(self):
+        l_down = Matrix([[1, 0, 0],
+                         [3, 1, 0],
+                         [2, 3, 1]])
+        diag = Matrix([[1, 0, 0],
+                       [0, 4, 0],
+                       [0, 0, 9]])
+        l_up = MOps().transpose(l_down)
+        output_ld = MOps().multiply(l_down, diag)
+        output = MOps().multiply(output_ld, l_up)
+        self.assertEqual(MOps().cholesky_ldl(output), {'l_down': l_down, 'diag': diag})
