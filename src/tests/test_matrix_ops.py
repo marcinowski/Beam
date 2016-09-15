@@ -101,8 +101,8 @@ class TestMultiplicationOperation(TestCase):
 
 class TestCholeskyLDL(TestCase):
     def test_cholesky_ldl(self):
-        matrix = Matrix([[1, 1, 1, 1],
-                         [1, 5, 5, 5],
+        matrix = Matrix([[1, 1,  1,  1],
+                         [1, 5,  5,  5],
                          [1, 5, 14, 14],
                          [1, 5, 14, 14]])
         l_down = MOps().cholesky_ldl(matrix)['l_down']
@@ -123,3 +123,21 @@ class TestCholeskyLDL(TestCase):
         output_ld = MOps().multiply(l_down, diag)
         output = MOps().multiply(output_ld, l_up)
         self.assertEqual(MOps().cholesky_ldl(output), {'l_down': l_down, 'diag': diag})
+
+    def test_cholesky_ldl_3(self):
+        matrix = Matrix([[4,    12, -16],
+                         [12,   37, -43],
+                         [-16, -43,  98]])
+        expected = {
+            'l_down': Matrix([[1,  0, 0],
+                              [3,  1, 0],
+                              [-4, 5, 1]]),
+            'diag': Matrix([[4, 0, 0],
+                            [0, 1, 0],
+                            [0, 0, 9]])
+        }
+        self.assertEqual(MOps().cholesky_ldl(matrix), expected)
+
+
+class TestDeterminant(TestCase):
+    pass

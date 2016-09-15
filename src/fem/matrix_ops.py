@@ -46,6 +46,7 @@ class MatrixOperations(object):
             raise TypeError
 
     def cholesky_ldl(self, matrix):
+        # TODO: test if matrix is square and positive
         l_down = []
         diag = []
         dim = len(matrix)
@@ -63,8 +64,17 @@ class MatrixOperations(object):
                 diag[i].append(0)
         return {'l_down': Matrix(l_down), 'diag': Matrix(diag)}
 
-    def reverse(self, matrix):
-        pass
+    def determinant(self, matrix):
+        # TODO: Now this works only when the matrix is symmetrical, and it's not always the case, it just must be square
+        diag = self.cholesky_ldl(matrix)['diag']
+        result = 1
+        for i, _ in enumerate(diag):
+            result *= diag[i][i]
+        return result
+
+    # def inverse(self, matrix):
+    #     """ May not be needed """
+    #     pass
 
     @staticmethod
     def _check_if_matrix_is_square(matrix):
