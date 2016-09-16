@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="790d7cc0-14d3-4f25-83ab-3594daabfa8e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/functional_tests/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/unit_tests/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fem/matrix_ops.py" afterPath="$PROJECT_DIR$/src/fem/matrix_ops.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/tests/test_beams.py" afterPath="$PROJECT_DIR$/src/tests/unit_tests/test_beams.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/tests/test_console.py" afterPath="$PROJECT_DIR$/src/tests/unit_tests/test_console.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/tests/test_matrix_ops.py" afterPath="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/tests/test_nodes.py" afterPath="$PROJECT_DIR$/src/tests/unit_tests/test_nodes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" afterPath="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" afterPath="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
     </list>
     <ignored path="Beam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,26 +48,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="matrix_ops.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="matrix_ops.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fem/matrix_ops.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="126" column="60" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="60" />
+            <state relative-caret-position="660">
+              <caret line="116" column="32" selection-start-line="116" selection-start-column="32" selection-end-line="116" selection-end-column="32" />
               <folding>
                 <element signature="e#2173#2625#1" expanded="false" />
-                <element signature="e#2936#3228#1" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_matrix_ops.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-216">
-              <caret line="64" column="44" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#2922#3214#1" expanded="false" />
+                <element signature="e#3593#3885#1" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -82,8 +65,8 @@
       <file leaf-file-name="test_matrix_ops.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="191">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -139,10 +122,10 @@
         <option value="$PROJECT_DIR$/src/console_gui/console.py" />
         <option value="$PROJECT_DIR$/src/FEM.py" />
         <option value="$PROJECT_DIR$/src/fem/matrix_op.py" />
-        <option value="$PROJECT_DIR$/src/fem/matrix_ops.py" />
         <option value="$PROJECT_DIR$/src/tests/test_matrix_ops.py" />
         <option value="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
         <option value="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" />
+        <option value="$PROJECT_DIR$/src/fem/matrix_ops.py" />
       </list>
     </option>
   </component>
@@ -196,100 +179,7 @@
       <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit_tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Beam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="functional_tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
     </panes>
   </component>
@@ -305,51 +195,7 @@
       <recent name="D:\Documents\Programowanie\Python\Beam\src\models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest TestSolvingTriangleEquations.test_equation_solving">
-    <configuration default="false" name="Unittests in test_matrix_ops" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Beam" />
-      <option name="SCRIPT_NAME" value="D:\Documents\Programowanie\Python\Beam\src\tests\unit_tests\test_matrix_ops.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestCholeskyLDL.test_cholesky_ldl_3" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Beam" />
-      <option name="SCRIPT_NAME" value="D:\Documents\Programowanie\Python\Beam\src\tests\unit_tests\test_matrix_ops.py" />
-      <option name="CLASS_NAME" value="TestCholeskyLDL" />
-      <option name="METHOD_NAME" value="test_cholesky_ldl_3" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittest TestSolvingSquareEquations.test_equation_solving">
     <configuration default="false" name="Unittests in TestSolvingTriangleEquations" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -372,28 +218,6 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittests in TestMultiplicationOperation" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests/unit_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Beam" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
-      <option name="CLASS_NAME" value="TestMultiplicationOperation" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_CLASS" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="Unittest TestSolvingTriangleEquations.test_equation_solving" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -406,6 +230,72 @@
       <module name="Beam" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" />
       <option name="CLASS_NAME" value="TestSolvingTriangleEquations" />
+      <option name="METHOD_NAME" value="test_equation_solving" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestMultiplicationOperation.test_matrix_multiplication" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests/unit_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Beam" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
+      <option name="CLASS_NAME" value="TestMultiplicationOperation" />
+      <option name="METHOD_NAME" value="test_matrix_multiplication" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in test_matrix_ops" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests/unit_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Beam" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestSolvingSquareEquations.test_equation_solving" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests/functional_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Beam" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py" />
+      <option name="CLASS_NAME" value="TestSolvingSquareEquations" />
       <option name="METHOD_NAME" value="test_equation_solving" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
@@ -551,19 +441,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_matrix_ops" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestCholeskyLDL.test_cholesky_ldl_3" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestSolvingTriangleEquations" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestMultiplicationOperation" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingTriangleEquations.test_equation_solving" />
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in TestSolvingTriangleEquations" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingTriangleEquations.test_equation_solving" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestMultiplicationOperation.test_matrix_multiplication" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_matrix_ops" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingSquareEquations.test_equation_solving" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingTriangleEquations.test_equation_solving" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestMultiplicationOperation" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestSolvingTriangleEquations" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_matrix_ops" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestCholeskyLDL.test_cholesky_ldl_3" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingSquareEquations.test_equation_solving" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestSolvingTriangleEquations.test_equation_solving" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test_matrix_ops" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestSolvingTriangleEquations" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestMultiplicationOperation.test_matrix_multiplication" />
       </list>
     </recent_temporary>
   </component>
@@ -584,35 +474,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittest_TestSolvingTriangleEquations_test_equation_solving - 2016.09.16 at 21h 35m 45s.xml">
-      <configuration name="Unittest TestSolvingTriangleEquations.test_equation_solving" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 37m 24s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_TestMultiplicationOperation - 2016.09.16 at 21h 32m 20s.xml">
-      <configuration name="Unittests in TestMultiplicationOperation" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 37m 41s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_TestSolvingTriangleEquations - 2016.09.16 at 21h 15m 29s.xml">
-      <configuration name="Unittests in TestSolvingTriangleEquations" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 38m 31s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_TestSolvingTriangleEquations - 2016.09.16 at 21h 22m 45s.xml">
-      <configuration name="Unittests in TestSolvingTriangleEquations" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 41m 37s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_TestSolvingTriangleEquations - 2016.09.16 at 21h 22m 58s.xml">
-      <configuration name="Unittests in TestSolvingTriangleEquations" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 42m 15s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_TestSolvingTriangleEquations - 2016.09.16 at 21h 23m 22s.xml">
-      <configuration name="Unittests in TestSolvingTriangleEquations" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 42m 46s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_matrix_ops - 2016.09.15 at 23h 25m 25s.xml">
-      <configuration name="Unittests in test_matrix_ops" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 45m 02s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_matrix_ops - 2016.09.15 at 23h 28m 23s.xml">
-      <configuration name="Unittests in test_matrix_ops" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 45m 39s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_matrix_ops - 2016.09.15 at 23h 29m 50s.xml">
-      <configuration name="Unittests in test_matrix_ops" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 53m 28s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_matrix_ops - 2016.09.16 at 00h 28m 10s.xml">
-      <configuration name="Unittests in test_matrix_ops" configurationId="tests" />
+    <history-entry file="Unittest_TestSolvingSquareEquations_test_equation_solving - 2016.09.16 at 23h 56m 45s.xml">
+      <configuration name="Unittest TestSolvingSquareEquations.test_equation_solving" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -628,12 +518,13 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.48404256" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2489019" sideWeight="0.48404256" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5023474" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25310558" sideWeight="0.49707174" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3441358" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37962964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21102941" sideWeight="0.4801865" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21102941" sideWeight="0.51981354" order="2" side_tool="true" content_ui="tabs" />
@@ -643,7 +534,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32707354" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1036,33 +926,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fem/matrix_ops.py">
+    <entry file="file://$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="126" column="60" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="60" />
+        <state relative-caret-position="-1011">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="e#2173#2625#1" expanded="false" />
-            <element signature="e#2936#3228#1" expanded="false" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/functional_tests/test_matrix_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="191">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/unit_tests/test_matrix_ops.py">
+    <entry file="file://$PROJECT_DIR$/src/fem/matrix_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-216">
-          <caret line="64" column="44" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="44" />
+        <state relative-caret-position="660">
+          <caret line="116" column="32" selection-start-line="116" selection-start-column="32" selection-end-line="116" selection-end-column="32" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#2173#2625#1" expanded="false" />
+            <element signature="e#2922#3214#1" expanded="false" />
+            <element signature="e#3593#3885#1" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -47,14 +47,14 @@ class TestDeterminant(TestCase):
 
 
 class TestSolvingTriangleEquations(TestCase):
-    def test_equation_solving(self):
-        matrix = Matrix([[1,  3,  5],
-                         [3, 13, 27],
-                         [5, 27, 77]])
-        result = [4, 24, 80]
-        solution = MOps().solve_ldl_equation(matrix, result)
-        print(solution)
+    pass
 
 
 class TestSolvingSquareEquations(TestCase):
-    pass
+    def test_equation_solving(self):
+        matrix = Matrix([[1, 3, 5],
+                         [3, 13, 27],
+                         [5, 27, 77]])
+        result = Matrix([[4], [24], [80]])
+        solution = MOps().solve_ldl_equation(matrix, result)
+        self.assertEqual(MOps().multiply(matrix, solution), result)

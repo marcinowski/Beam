@@ -75,12 +75,12 @@ class MatrixOperations(object):
         :return: solution x vector
         """
         l_down, diag = self.cholesky_ldl(matrix)
-        y = self._solve_triangular_equations(l_down, result)
+        y = self._solve_l_down_equations(l_down, result)
         step_2 = self.multiply(diag, self.transpose(l_down))
-        return self._solve_triangular_equations(step_2, y)
+        return self._solve_l_up_equations(step_2, y)
 
     @staticmethod
-    def _solve_triangular_equations(matrix, result):
+    def _solve_l_down_equations(matrix, result):
         """
         Method for resolving triangular matrix equations of form Lx=b, where L is lower triangular matrix.
         It uses forward substitution method.
@@ -93,21 +93,29 @@ class MatrixOperations(object):
         solution = []
         for m in range(dim):
             solution.append(
-                (result[m] - sum([matrix[m][i] * result[i] for i in range(m)])) / matrix[m][m]
+                [(result[m][0] - sum([matrix[m][i] * solution[i][0] for i in range(m)])) / matrix[m][m]]
             )
-        return solution
+        return Matrix(solution)
+
+    def _solve_l_up_equations(self, matrix, result):
+        """
+        Method for resolving triangular matrix equations of form Lx=b, where L is upper triangular matrix.
+        It uses forward substitution method.
+        :param matrix: upper triangular matrix
+        :param result: vector or results
+        :return: vector of solutions
+        """
+        matrix = Matrix([row[::-1] for row in matrix][::-1])  # slicing operation returns list..
+        result = Matrix([row[::-1] for row in result][::-1])
+        return Matrix(self._solve_l_down_equations(matrix, result)[::-1])
 
     def determinant(self, matrix):
-        # TODO: Now this works only when the matrix is symmetrical, and it's not always the case, it just must be square
-        diag = self.cholesky_ldl(matrix)['diag']
+        # TODO: Now this works only when the matrix is possible to decompose using Cholesky
+        _, diag = self.cholesky_ldl(matrix)
         result = 1
         for i, _ in enumerate(diag):
             result *= diag[i][i]
         return result
-
-    # def inverse(self, matrix):
-    #     """ May not be needed """
-    #     pass
 
     @staticmethod
     def _check_if_matrix_is_square(matrix):
@@ -131,7 +139,10 @@ class MatrixOperations(object):
     def _matrix_multiplication(self, m_1, m_2):
         self._check_matrix_multiplication(m_1, m_2)
         m_2_t = self.transpose(m_2)
-        return Matrix([[self._vector_multiplication(i, self.transpose(j)) for j in m_2_t] for i in m_1])
+        if type(m_2_t) == list:
+            return Matrix([[self._vector_multiplication(i, m_2)] for i in m_1])
+        else:
+            return Matrix([[self._vector_multiplication(i, self.transpose(j)) for j in m_2_t] for i in m_1])
 
     @staticmethod
     def _check_vector_multiplication(vector, m):

@@ -60,6 +60,9 @@ class TestTransposeOperation(TestCase):
                            [1, 2, 4]])
         self.assertEqual(MOps().transpose(self.m_1), expected)
         self.assertEqual(MOps().transpose(expected), self.m_1)
+        unit_matrix = Matrix([[1]])
+        self.assertEqual(MOps().transpose(unit_matrix), [1])
+        self.assertEqual(MOps().transpose([1]), unit_matrix)
 
 
 class TestMultiplicationOperation(TestCase):
@@ -97,3 +100,5 @@ class TestMultiplicationOperation(TestCase):
         self.assertEqual(MOps().multiply(self.m_3, self.m_4), expected)
         with self.assertRaises(MultiplicationError):
             MOps().multiply(self.m_2, self.m_4)
+        expected = Matrix([[3], [11]])
+        self.assertEqual(MOps().multiply(self.m_1, self.v_2), expected)
