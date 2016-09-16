@@ -62,7 +62,40 @@ class MatrixOperations(object):
             for j in range(i, dim-1):
                 l_down[i].append(0)
                 diag[i].append(0)
-        return {'l_down': Matrix(l_down), 'diag': Matrix(diag)}
+        return Matrix(l_down), Matrix(diag)
+
+    def solve_ldl_equation(self, matrix, result):
+        """
+        Solves linear equations of form Ax=B (Matrix * x = result vector)
+        step_1 solves lower triangle matrix of Cholesky LDL Decomposition Ly = b
+        step_2 multiplicates diagonal and upper triangular matrices of Cholesky LDL Decomposition DL*
+        step_3 solves DL* x = y
+        :param matrix: type Matrix, square, symmetrical, positive
+        :param result: vector of result values
+        :return: solution x vector
+        """
+        l_down, diag = self.cholesky_ldl(matrix)
+        y = self._solve_triangular_equations(l_down, result)
+        step_2 = self.multiply(diag, self.transpose(l_down))
+        return self._solve_triangular_equations(step_2, y)
+
+    @staticmethod
+    def _solve_triangular_equations(matrix, result):
+        """
+        Method for resolving triangular matrix equations of form Lx=b, where L is lower triangular matrix.
+        It uses forward substitution method.
+        :param matrix: lower triangular matrix
+        :param result: vector or results
+        :return: vector of solutions
+        """
+        # TODO: Test if result is the same 'dim' as matrix
+        dim = len(result)
+        solution = []
+        for m in range(dim):
+            solution.append(
+                (result[m] - sum([matrix[m][i] * result[i] for i in range(m)])) / matrix[m][m]
+            )
+        return solution
 
     def determinant(self, matrix):
         # TODO: Now this works only when the matrix is symmetrical, and it's not always the case, it just must be square
