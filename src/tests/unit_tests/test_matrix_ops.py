@@ -1,5 +1,5 @@
-from unittest import TestCase, main
-from src.fem.matrix_ops import Matrix, AdditionError
+from unittest import TestCase
+from src.fem.matrix_ops import Matrix, AdditionError, MultiplicationError
 from src.fem.matrix_ops import MatrixOperations as MOps
 
 
@@ -46,28 +46,59 @@ class TestAddingOperations(TestCase):
 class TestTransposeOperation(TestCase):
     def setUp(self):
         self.m_1 = Matrix([[0, 1],
-                    [1, 2],
-                    [3, 4]])
+                           [1, 2],
+                           [3, 4]])
         self.v_1 = [0, 2, 3]
 
     def test_vector_transposition(self):
-        expected = [[0], [2], [3]]
+        expected = Matrix([[0], [2], [3]])
         self.assertEqual(MOps().transpose(self.v_1), expected)
+        self.assertEqual(MOps().transpose(expected), self.v_1)
 
     def test_matrix_transposition(self):
         expected = Matrix([[0, 1, 3],
                            [1, 2, 4]])
         self.assertEqual(MOps().transpose(self.m_1), expected)
+        self.assertEqual(MOps().transpose(expected), self.m_1)
+        unit_matrix = Matrix([[1]])
+        self.assertEqual(MOps().transpose(unit_matrix), [1])
+        self.assertEqual(MOps().transpose([1]), unit_matrix)
 
 
 class TestMultiplicationOperation(TestCase):
     def setUp(self):
-        self.m_1 = [[0, 1],
-                    [2, 3]]
+        self.m_1 = Matrix([[0, 1],
+                           [2, 3]])
+        self.m_2 = Matrix([[0, 1],
+                           [2, 4]])
+        self.m_3 = Matrix([[0, 1, 2],
+                           [1, 2, 3]])
+        self.m_4 = Matrix([[0, 1],
+                           [2, 3],
+                           [3, 5]])
         self.v_1 = [0, 2]
+        self.v_2 = Matrix([[1], [3]])  # transposed vector
 
     def test_scalar_multiplication(self):
+        self.assertEqual(MOps().multiply(2, self.v_1), [0, 4])
         expected = [[0, 2],
                     [4, 6]]
-        self.assertEqual(MOps()._scalar_multiplication(2, self.m_1), expected)
-        self.assertEqual(MOps()._scalar_multiplication(2, self.v_1), [0, 4])
+        self.assertEqual(MOps().multiply(2, self.m_1), expected)
+
+    def test_vector_multiplication(self):
+        self.assertEqual(MOps().multiply(self.v_1, self.v_2), 6)
+        self.assertEqual(MOps().multiply(self.v_1, self.m_3), [2, 4, 6])
+        with self.assertRaises(MultiplicationError):
+            MOps().multiply(self.v_1, self.m_4)
+
+    def test_matrix_multiplication(self):
+        expected = Matrix([[2, 4],
+                           [6, 14]])
+        self.assertEqual(MOps().multiply(self.m_1, self.m_2), expected)
+        expected = Matrix([[8, 13],
+                           [13, 22]])
+        self.assertEqual(MOps().multiply(self.m_3, self.m_4), expected)
+        with self.assertRaises(MultiplicationError):
+            MOps().multiply(self.m_2, self.m_4)
+        expected = Matrix([[3], [11]])
+        self.assertEqual(MOps().multiply(self.m_1, self.v_2), expected)
