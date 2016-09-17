@@ -6,6 +6,10 @@ class MultiplicationError(Exception):
     pass
 
 
+class NonSymmetricMatrixError(Exception):
+    pass
+
+
 class Matrix(list):
     def dim(self):
         return len(self), len(self[0])
@@ -46,7 +50,7 @@ class MatrixOperations(object):
             raise TypeError
 
     def cholesky_ldl(self, matrix):
-        # TODO: test if matrix is square and positive
+        self._check_matrix_symmetricity(matrix)
         l_down = []
         diag = []
         dim = len(matrix)
@@ -97,17 +101,23 @@ class MatrixOperations(object):
             )
         return Matrix(solution)
 
-    def _solve_l_up_equations(self, matrix, result):
+    @staticmethod
+    def _solve_l_up_equations(matrix, result):
         """
         Method for resolving triangular matrix equations of form Lx=b, where L is upper triangular matrix.
-        It uses forward substitution method.
+        It uses back substitution method.
         :param matrix: upper triangular matrix
         :param result: vector or results
         :return: vector of solutions
         """
-        matrix = Matrix([row[::-1] for row in matrix][::-1])  # slicing operation returns list..
-        result = Matrix([row[::-1] for row in result][::-1])
-        return Matrix(self._solve_l_down_equations(matrix, result)[::-1])
+        dim = len(result) - 1
+        solution = []
+        for m in range(dim, -1, -1):
+            solution.append(
+                [(result[m][0] - sum([matrix[m][dim-i] * solution[i][0] for i in range(dim-m)])) / matrix[m][m]]
+            )
+            print(m, solution)
+        return Matrix(solution[::-1])
 
     def determinant(self, matrix):
         # TODO: Now this works only when the matrix is possible to decompose using Cholesky
@@ -170,3 +180,7 @@ class MatrixOperations(object):
             else:
                 raise AdditionError("Matrices don't have the same dimensions!")
         # else: return False ! Not necessary
+
+    def _check_matrix_symmetricity(self, matrix):
+        if matrix != self.transpose(matrix):
+            raise NonSymmetricMatrixError
