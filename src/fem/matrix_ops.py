@@ -18,13 +18,41 @@ class Matrix(list):
 # TODO Cholesky, reversing, determinant
 
 class MatrixOperations(object):
+    """
+    Base Class for Matrix and Vector operations. Includes:
+    - adding and subtracting
+    - multiplication
+    - transposing matrices
+    - Cholesky LDL Decomposition
+    - Solving Matrix equations of type Ax = b
+    - calculating Determinant
+    """
     def add(self, m_1, m_2):
+        """
+        Method for adding two matrices.
+        Note! Matrices have to be the same size.
+        :param m_1: lefthand matrix
+        :param m_2: righthand matrix
+        :return: result matrix
+        """
         return self._add_or_subtract(m_1, m_2, sign=1, function=self.add)
 
     def subtract(self, m_1, m_2):
+        """
+        Method for subtracting two matrices.
+        Note! Matrices have to be the same size.
+        :param m_1: lefthand matrix
+        :param m_2: righthand matrix
+        :return: result matrix
+        """
         return self._add_or_subtract(m_1, m_2, sign=-1, function=self.subtract)
 
     def transpose(self, matrix):
+        """
+        Method for transposing matrices.
+        :param matrix: matrix or vector
+        :return: transposed matrix or vector
+        """
         t_1 = type(matrix)
         if t_1 == list:
             return Matrix([[i] for i in matrix])
@@ -35,9 +63,11 @@ class MatrixOperations(object):
                 return Matrix([[matrix[i][j] for i in range(len(matrix))] for j in range(len(matrix[0]))])
 
     def multiply(self, m_1, m_2):
-        """Performs multiplication of different types.
-        :param m_1 can be numeric, list (vector) or matrix,
-        :param m_2 can be list (vector) or matrix
+        """
+        General method for scalar, vector and matrix multiplication.
+        :param m_1: lefthand object (number, vector or matrix)
+        :param m_2: righthand object (vector or matrix)
+        :return: result of multiplication
         """
         t_1 = type(m_1)
         if t_1 in [int, float]:
@@ -50,6 +80,12 @@ class MatrixOperations(object):
             raise TypeError
 
     def cholesky_ldl(self, matrix):
+        """
+        Method for performing Cholesky LDL Decomposition.
+        Note! Matrix should be symmetrical.
+        :param matrix: symmetrical matrix
+        :return: tuple of Upper-triangular matrix and Diagonal Matrix (type Matrix)
+        """
         self._check_matrix_symmetricity(matrix)
         l_down = []
         diag = []
@@ -82,6 +118,19 @@ class MatrixOperations(object):
         y = self._solve_l_down_equations(l_down, result)
         step_2 = self.multiply(diag, self.transpose(l_down))
         return self._solve_l_up_equations(step_2, y)
+
+    def determinant(self, matrix):
+        """
+        Method for calculating the determinant of given matrix
+        :param matrix: symmetrical matrix
+        :return: determinant of matrix (type: number)
+        """
+        # TODO: Now this works only when the matrix is possible to decompose using Cholesky
+        _, diag = self.cholesky_ldl(matrix)
+        result = 1
+        for i, _ in enumerate(diag):
+            result *= diag[i][i]
+        return result
 
     @staticmethod
     def _solve_l_down_equations(matrix, result):
@@ -119,26 +168,26 @@ class MatrixOperations(object):
             print(m, solution)
         return Matrix(solution[::-1])
 
-    def determinant(self, matrix):
-        # TODO: Now this works only when the matrix is possible to decompose using Cholesky
-        _, diag = self.cholesky_ldl(matrix)
-        result = 1
-        for i, _ in enumerate(diag):
-            result *= diag[i][i]
-        return result
-
-    @staticmethod
-    def _check_if_matrix_is_square(matrix):
-        return len(matrix) == len(matrix[0])
-
     @staticmethod
     def _scalar_multiplication(c, matrix):
+        """
+        Method for multiplying a number by a vector or matrix
+        :param c: number (int or float)
+        :param matrix: matrix or vector
+        :return: matrix or vector
+        """
         if type(matrix) == Matrix:
-            return [[c * j for j in i] for i in matrix]
+            return Matrix([[c * j for j in i] for i in matrix])
         elif type(matrix) == list:
             return [c * j for j in matrix]
 
     def _vector_multiplication(self, vector, m):
+        """
+        Method for multiplying vector by vector or matrix
+        :param vector: vector (python type list)
+        :param m: matrix (type matrix)
+        :return: result is a number or a vector
+        """
         self._check_vector_multiplication(vector, m)
         m_t = self.transpose(m)
         if type(m_t) == list:
@@ -147,12 +196,34 @@ class MatrixOperations(object):
             return [sum([j * k for j, k in zip(vector, i)]) for i in m_t]
 
     def _matrix_multiplication(self, m_1, m_2):
+        """
+        Method for multiplying matrix by matrix
+        :param m_1: lefthand matrix
+        :param m_2: righthand matrix
+        :return: matrix
+        """
         self._check_matrix_multiplication(m_1, m_2)
         m_2_t = self.transpose(m_2)
         if type(m_2_t) == list:
             return Matrix([[self._vector_multiplication(i, m_2)] for i in m_1])
         else:
             return Matrix([[self._vector_multiplication(i, self.transpose(j)) for j in m_2_t] for i in m_1])
+
+    def _add_or_subtract(self, m_1, m_2, sign, function):
+        """
+        Generic method for adding or substracting matrices.
+        :param m_1: lefthand matrix
+        :param m_2: righthand matrix
+        :param sign: 1 for adding and -1 for subtracting
+        :param function: add or subtract
+        :return: matrix
+        """
+        if self._check_add_matching(m_1, m_2, Matrix):
+            return Matrix([function(m_1[i], m_2[i]) for i, _ in enumerate(m_1)])
+        elif self._check_add_matching(m_1, m_2, list):
+            return [i + j*sign for i, j in zip(m_1, m_2)]
+        else:
+            raise TypeError("You can add only matrices or vectors!")
 
     @staticmethod
     def _check_vector_multiplication(vector, m):
@@ -164,13 +235,9 @@ class MatrixOperations(object):
         if len(m_1[0]) != len(m_2):
             raise MultiplicationError
 
-    def _add_or_subtract(self, m_1, m_2, sign, function):
-        if self._check_add_matching(m_1, m_2, Matrix):
-            return Matrix([function(m_1[i], m_2[i]) for i, _ in enumerate(m_1)])
-        elif self._check_add_matching(m_1, m_2, list):
-            return [i + j*sign for i, j in zip(m_1, m_2)]
-        else:
-            raise TypeError("You can add only matrices or vectors!")
+    @staticmethod
+    def _check_if_matrix_is_square(matrix):
+        return len(matrix) == len(matrix[0])
 
     @staticmethod
     def _check_add_matching(m_1, m_2, control_type):
