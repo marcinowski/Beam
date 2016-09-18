@@ -5,7 +5,8 @@ from src.models.meta import ObjectExists
 
 class TestNodes(TestCase):
     def setUp(self):
-        pass
+        for node in Node.objects:
+            Node.remove(node)
 
     def test_node_uniqueness(self):
         Node.get_or_create(x=1, y=2)

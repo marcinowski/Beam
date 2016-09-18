@@ -84,7 +84,9 @@ class ConsoleObjectMenu(TemplateMenu):
     obj = None
 
     def object_menu(self):
-        self.print_help("Do you want to 'add', 'list' {name}s, 'delete' them, or 'back' to main?".format(name=self.obj.name))
+        self.print_help(
+            "Do you want to 'add', 'list' {name}s, 'delete' them, or 'back' to main?".format(name=self.obj.name)
+        )
         while True:
             self.print_info("***{name} Menu***".format(name=self.obj.name.capitalize()))
             action = input('>>')
@@ -111,7 +113,9 @@ class ConsoleObjectMenu(TemplateMenu):
             return
         while True:
             self.print_info('***{name} Delete Menu***'.format(name=self.obj.name))
-            self.print_help("Type _id of the {name} to be removed, 'list' or 'back' to cancel".format(name=self.obj.name))
+            self.print_help(
+                "Type _id of the {name} to be removed, 'list' or 'back' to cancel".format(name=self.obj.name)
+            )
             action = input('>>')
             if action == 'back':
                 return
