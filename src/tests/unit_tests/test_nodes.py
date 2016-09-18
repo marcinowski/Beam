@@ -1,7 +1,4 @@
-import sys
 from unittest import TestCase, main
-
-sys.path.append('D:\\Documents\\Programowanie\\Python\\Beam')
 from src.models.node import Node
 from src.models.meta import ObjectExists
 
