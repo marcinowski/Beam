@@ -14,10 +14,10 @@ class TestNodes(TestCase):
             Node(x=1, y=2)
 
     def test_get_multiple(self):
-        Node.get_or_create(x=3, y=2)
-        Node.get_or_create(x=2, y=2)
-        Node.get_or_create(x=3, y=3)
-        self.assertEqual(len(Node.get_multiple(x=3)), 2)
+        Node.get_or_create(x=13, y=2)
+        Node.get_or_create(x=13, y=2)
+        Node.get_or_create(x=13, y=3)
+        self.assertEqual(len(Node.get_multiple(x=13)), 2)
 
     def test_get_or_create(self):
         Node.get_or_create(x=4, y=5)
