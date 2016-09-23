@@ -1,7 +1,10 @@
 from src.models.beam import Beam
 from src.models.load import Force, Momentum, UniformLoad
 from src.models.supports import Support, Joint
-from src.fem.matrix_ops import MatrixOperations
+from src.fem.matrix_ops import MatrixOperations as Ops
+from src.fem.matrix_ops import Matrix
+from src.fem.matrix_templates import SINGLE_LOCAL_MATRIX_MULTIPLIERS as multiplier
+from src.fem.matrix_templates import SINGLE_LOCAL_MATRIX_POWERS_IN_DENOMINATOR as power
 
 
 class FEM(object):
@@ -26,7 +29,7 @@ class FEM(object):
 
     def generate_local_stiffness_matrix(self):
         for beam in self.beams:
-            self._generate_single_local_stif_matrix(beam)
+            self._generate_single_local_stiffness_matrix(beam)
 
     def generate_load_vector(self):
         pass
@@ -37,13 +40,20 @@ class FEM(object):
     def generate_global_stiffness_matrix(self):
         pass
 
-    def _generate_single_local_stif_matrix(self, beam):
+    @staticmethod
+    def _generate_single_local_stiffness_matrix(beam):
         l = ((beam.start_node.x - beam.end_node.x) ** 2 + (beam.start_node.y - beam.end_node.y) ** 2) ** 0.5
         e = beam.material.young
         a = beam.section.area
         i = beam.section.inertia
-        dn = e * a / l
-        db = (12 * e * i / l ** 3, 6 * e * i / l ** 2, 4 * e * i / l)
-        k = [[dn, 0, 0],
-             [0, db[0], db[1]],
-             [0, db[1], db[2]]]
+        dn = e * a
+        db = e * i
+        size = range(len(power))
+        k = Matrix([[db * multiplier[i][j] / (l ** power[i][j]) for j in size] for i in size])
+        for i in size:
+            if i % 3 == 0:
+                for j in size:
+                    k[i][j] *= dn/db
+        return k
+
+
