@@ -61,5 +61,3 @@ class FEM(object):
                 for j in size:
                     k[i][j] *= dn/db
         return k
-
-
