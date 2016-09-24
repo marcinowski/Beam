@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.fem.matrix_templates import SINGLE_LOCAL_MATRIX_POWERS_IN_DENOMINATOR as powers
-from src.fem.matrix_templates import SINGLE_LOCAL_MATRIX_MULTIPLIERS as multipliers
+from src.fem.matrix_templates import LOCAL_MATRIX_LENGTH_POWERS as powers
+from src.fem.matrix_templates import LOCAL_MATRIX_MULTIPLIERS as multipliers
 from src.fem.fem import FEM
 from src.fem.matrix_ops import MatrixOperations as Ops
 from src.fem.matrix_ops import Matrix
@@ -9,10 +9,12 @@ from src.models.node import Node
 from src.models.section import Section
 from src.models.material import Material
 from src.models.beam import Beam
+from src.models.settings import Settings
 
 
 class TestFEM(TestCase):
     def setUp(self):
+        Settings.get_or_create()
         self.beam = Beam.get_or_create(
             start_node=Node.get_or_create(x=0, y=0),
             end_node=Node.get_or_create(x=4, y=0),
