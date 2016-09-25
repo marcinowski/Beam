@@ -1,3 +1,5 @@
+from itertools import product
+
 from src.models.beam import Beam
 from src.models.node import Node
 from src.models.settings import Settings
@@ -27,12 +29,35 @@ class FEM(object):
         pass
 
     def generate_global_stiffness_matrix(self):
+        global_k = Ops().create_empty_matrix(Node.count()*3)
         for beam in self.beams:
             k_local = self._generate_single_local_stiffness_matrix(beam)
-            k_global = self._transform_local_to_global(beam, k_local)
+            single_k_global = self._transform_local_to_global(beam, k_local)
+            self._map_single_k_onto_global_k(single_k_global, beam, global_k)
+        return global_k
 
     def generate_load_vector(self):
         pass
+
+    def _map_single_k_onto_global_k(self, k, beam, global_k):
+        start_pos = beam.start_node._id - 1
+        end_pos = beam.end_node._id - 1
+        pos = tuple(product((start_pos, end_pos), repeat=2))
+        k_copy = self._divide_k_into_four(k)
+        for index, sub_m in enumerate(k_copy):
+            for i in range(3):
+                for j in range(3):
+                    global_k[pos[index][0] * 3 + i][pos[index][1] * 3 + j] += sub_m[i][j]
+
+    def _divide_k_into_four(self, k_matrix):
+        ranges = ((0, 3), (3, 6))
+        result = Matrix([])
+        for rows in ranges:
+            for cols in ranges:
+                result.append(
+                    [[k_matrix[i][j] for j in range(*cols)] for i in range(*rows)]
+                )
+        return result
 
     def _transform_local_to_global(self, beam, k_local):
         length = beam.length() * self.settings.length

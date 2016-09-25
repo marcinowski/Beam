@@ -27,12 +27,28 @@ class Base(metaclass=Meta):
 
     @classmethod
     def remove(cls, instance):
+        """
+        Removes selected instance from objects.
+        :param instance: instance of an object
+        """
         cls.objects.remove(instance)
         cls._sort_global_ids()
 
     @classmethod
     def count(cls):
+        """
+        Returns number of created objects.
+        :return: number of objects
+        """
         return len(cls.objects)
+
+    @classmethod
+    def remove_all(cls):
+        """
+        Removes all created objects.
+        """
+        for instance in cls.objects:
+            cls.remove(instance)
 
     def modify_parameters(self, **kwargs):
         """ Method for modifying given parameters

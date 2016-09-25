@@ -134,13 +134,15 @@ class MatrixOperations(object):
         return result
 
     @staticmethod
-    def create_empty_matrix(rows, columns):
+    def create_empty_matrix(rows, columns=None):
         """
-        Method for creating matrix rows x columns filled with 0's
+        Method for creating matrix rows x columns filled with 0's.
+        If value for columns is not given, the result will be a square matrix rows x rows.
         :param rows: number of rows
         :param columns: number of columns
         :return: zero matrix object
         """
+        columns = columns or rows
         return Matrix([[0 for _ in range(columns)] for _ in range(rows)])
 
     @staticmethod
