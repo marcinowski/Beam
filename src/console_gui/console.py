@@ -15,7 +15,7 @@ class ConsoleMode(TemplateMenu):
     def __init__(self):
         Settings.get_or_create()
 
-    def run(self):
+    def run(self):  # pragma: no mccabe
         self.print_info("Welcome to Beam!")
         self.print_help("Type 'help' for the list of available options.")
         while True:
