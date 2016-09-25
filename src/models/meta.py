@@ -30,6 +30,10 @@ class Base(metaclass=Meta):
         cls.objects.remove(instance)
         cls._sort_global_ids()
 
+    @classmethod
+    def count(cls):
+        return len(cls.objects)
+
     def modify_parameters(self, **kwargs):
         """ Method for modifying given parameters
         """

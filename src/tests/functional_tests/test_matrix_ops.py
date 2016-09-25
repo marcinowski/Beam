@@ -58,3 +58,22 @@ class TestSolvingSquareEquations(TestCase):
         result = Matrix([[4], [24], [80]])
         solution = MOps().solve_ldl_equation(matrix, result)
         self.assertEqual(MOps().multiply(matrix, solution), result)
+
+
+class TestCreateEmptyMatrix(TestCase):
+    def test_empty_matrix(self):
+        expected = Matrix([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ])
+        self.assertEqual(MOps().create_empty_matrix(3, 3), expected)
+
+    def test_empty_matrix_2(self):
+        expected = Matrix([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ])
+        self.assertEqual(MOps().create_empty_matrix(4, 3), expected)

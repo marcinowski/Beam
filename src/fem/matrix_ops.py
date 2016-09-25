@@ -26,6 +26,7 @@ class MatrixOperations(object):
     - Cholesky LDL Decomposition
     - Solving Matrix equations of type Ax = b
     - calculating Determinant
+    - creating empty matrix of given dimensions
     """
     def add(self, m_1, m_2):
         """
@@ -131,6 +132,16 @@ class MatrixOperations(object):
         for i, _ in enumerate(diag):
             result *= diag[i][i]
         return result
+
+    @staticmethod
+    def create_empty_matrix(rows, columns):
+        """
+        Method for creating matrix rows x columns filled with 0's
+        :param rows: number of rows
+        :param columns: number of columns
+        :return: zero matrix object
+        """
+        return Matrix([[0 for _ in range(columns)] for _ in range(rows)])
 
     @staticmethod
     def _solve_l_down_equations(matrix, result):

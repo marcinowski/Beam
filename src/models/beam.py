@@ -18,3 +18,13 @@ class Beam(Base):
 
     def __repr__(self):
         return "Beam #{id}".format(id=self._id)
+
+    def length(self):
+        """
+        Method for calcuating Beam's length.
+        :return: length
+        """
+        return (
+            (self.start_node.x - self.end_node.x) ** 2
+            + (self.start_node.y - self.end_node.y) ** 2
+        ) ** 0.5
