@@ -35,11 +35,11 @@ class TestFEMBasic(TestCase):
         self.assertEqual(k_matrix, Ops().transpose(k_matrix))
 
     def test_generating_global_K(self):
-        K_global = self.fem.generate_global_stiffness_matrix()
-        for i in K_global:
+        self.fem.generate_global_stiffness_matrix()
+        for i in self.fem.global_k:
             print(i)
         print('_____________________')
-        self.assertEqual(K_global, Ops().transpose(K_global))
+        self.assertEqual(self.fem.global_k, Ops().transpose(self.fem.global_k))
 
 
 class TestFEMComplex(TestCase):
@@ -61,6 +61,6 @@ class TestFEMComplex(TestCase):
         self.fem = FEM()
 
     def test_generating_global_K(self):
-        k_global = self.fem.generate_global_stiffness_matrix()
-        for i in k_global:
+        self.fem.generate_global_stiffness_matrix()
+        for i in self.fem.global_k:
             print(i)
