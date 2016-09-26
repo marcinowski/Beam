@@ -20,6 +20,9 @@ class FEM(object):
         self.loads = Force.objects + Momentum.objects + UniformLoad.objects
         self.supports = Support.objects
         self.joints = Joint.objects
+        self.global_k = Ops().create_empty_matrix(Node.count()*3)
+        self.displacement_v = []
+        self.force_v = []
 
     def run_calculations(self):
         pass
@@ -29,15 +32,22 @@ class FEM(object):
         pass
 
     def generate_global_stiffness_matrix(self):
-        global_k = Ops().create_empty_matrix(Node.count()*3)
         for beam in self.beams:
             k_local = self._generate_single_local_stiffness_matrix(beam)
             single_k_global = self._transform_local_to_global(beam, k_local)
-            self._map_single_k_onto_global_k(single_k_global, beam, global_k)
-        return global_k
+            self._map_single_k_onto_global_k(single_k_global, beam, self.global_k)
 
     def generate_load_vector(self):
         pass
+
+    def generate_displacement_vector(self):
+        init = ['u' for _ in Node.count()*3]
+        for sup in self.supports:
+            pos = sup.node._id * 3
+            for i, j in enumerate(['x', 'y', 'rot']):
+                if getattr(sup, j):
+                    init[pos + i] = 0
+        self.displacement_v = init
 
     def _map_single_k_onto_global_k(self, k, beam, global_k):
         start_pos = beam.start_node._id - 1
