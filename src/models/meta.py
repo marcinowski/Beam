@@ -49,6 +49,7 @@ class Base(metaclass=Meta):
         """
         for instance in cls.objects:
             cls.remove(instance)
+        cls.objects = []
 
     def modify_parameters(self, **kwargs):
         """ Method for modifying given parameters
