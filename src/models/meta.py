@@ -57,7 +57,7 @@ class Base(metaclass=Meta):
             setattr(self, key, value)
 
     @classmethod
-    def get_obj_by_params(cls, **params):
+    def get(cls, **params):
         """ Gets a node by it's parameters
         """
         results = cls.get_multiple(**params)
@@ -85,7 +85,7 @@ class Base(metaclass=Meta):
         :param params: object parameters for filtering
         """
         try:
-            obj = cls.get_obj_by_params(**params)
+            obj = cls.get(**params)
         except ObjectDoesNotExist:
             obj = cls(**params)
         except MultipleObjectsFound:

@@ -123,7 +123,7 @@ class ConsoleObjectMenu(TemplateMenu):
                 ConsolePrintOut().print_model(self.obj)
             else:
                 try:
-                    obj_to_remove = self.obj.get_obj_by_params(_id=int(action))
+                    obj_to_remove = self.obj.get(_id=int(action))
                 except ObjectDoesNotExist:
                     self.print_warn("Wrong id! Try again or 'back' to cancel")
                 except ValueError:

@@ -17,7 +17,9 @@ class FEM(object):
         self.beams = Beam.objects
         self.nodes = Node.objects
         self.settings = Settings.objects[0]
-        self.loads = Force.objects + Momentum.objects + UniformLoad.objects
+        self.forces = Force.objects
+        self.forces = Momentum.objects
+        # self.uniform_loads = UniformLoad.objects
         self.supports = Support.objects
         self.joints = Joint.objects
         self.global_k = Ops().create_empty_matrix(Node.count()*3)
@@ -70,13 +72,16 @@ class FEM(object):
         return result
 
     def _transform_local_to_global(self, beam, k_local):
-        length = beam.length() * self.settings.length
-        sinus = (beam.end_node.y - beam.start_node.y) / length
-        cosinus = (beam.end_node.x - beam.start_node.x) / length
-        c_matrix = m_temp.create_directional_matrix(c=cosinus, s=sinus)
+        c_matrix = self._generate_single_directional_matrix(beam)
         c_transpose = Ops().transpose(c_matrix)
         c_k_loc = Ops().multiply(c_matrix, k_local)
         return Ops().multiply(c_k_loc, c_transpose)
+
+    def _generate_single_directional_matrix(self, beam):
+        length = beam.length() * self.settings.length
+        sinus = (beam.end_node.y - beam.start_node.y) / length
+        cosinus = (beam.end_node.x - beam.start_node.x) / length
+        return m_temp.create_directional_matrix(c=cosinus, s=sinus)
 
     def _generate_single_local_stiffness_matrix(self, beam):
         length = beam.length() * self.settings.length

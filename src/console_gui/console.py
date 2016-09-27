@@ -117,7 +117,7 @@ class ConsoleBeamMenu(ConsoleObjectMenu):
                 obj_manager().object_menu()
             else:
                 try:
-                    obj_selected = obj.get_obj_by_params(_id=int(action))
+                    obj_selected = obj.get(_id=int(action))
                 except ObjectDoesNotExist:
                     self.print_warn("Wrong id! Try again or 'back' to cancel")
                 except ValueError:
@@ -140,7 +140,7 @@ class LoadTemplateMenu(ConsoleObjectMenu):
                 ConsolePrintOut().print_model(obj)
             else:
                 try:
-                    obj_selected = obj.get_obj_by_params(_id=int(action))
+                    obj_selected = obj.get(_id=int(action))
                 except ObjectDoesNotExist:
                     self.print_warn("Wrong id! Try again or 'back' to cancel")
                 except ValueError:
