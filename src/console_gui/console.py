@@ -24,7 +24,7 @@ class ConsoleMode(TemplateMenu):
             if action == 'quit':
                 return
             elif action == 'help':
-                self._view_help('\\help_msg.txt')
+                self._view_help('help_msg.txt')
             elif action == 'node':
                 ConsoleNodeMenu().object_menu()
             elif action == 'section':
@@ -228,7 +228,7 @@ class LoadMainMenu(TemplateMenu):
             elif action == 'back':
                 return
             elif action == 'help':
-                self._view_help('\\help_load_msg.txt')
+                self._view_help('help_load_msg.txt')
             else:
                 self.print_warn("Unknown command. Type 'help' for the list of available options.")
 
@@ -246,7 +246,7 @@ class ConsoleSupportMainMenu(TemplateMenu):
             elif action == 'back':
                 return
             elif action == 'help':
-                self._view_help('\\help_supp_msg.txt')
+                self._view_help('help_supp_msg.txt')
             else:
                 self.print_warn("Unknown command. Type 'help' for the list of available options.")
 

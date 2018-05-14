@@ -1,3 +1,4 @@
 /.idea/
 *.pyc
 src/console_gui/__pycache__/
+env/

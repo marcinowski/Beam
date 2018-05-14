@@ -75,7 +75,7 @@ class ConsoleInputs(ConsolePrints):
 
 class TemplateMenu(ConsoleInputs, ConsolePrints):
     def _view_help(self, help_path):
-        with open(os.path.dirname(__file__) + help_path, 'r') as f:
+        with open(os.path.join(os.path.dirname(__file__), help_path), 'r') as f:
             print(f.read())
 
 
@@ -99,7 +99,7 @@ class ConsoleObjectMenu(TemplateMenu):
             elif action == 'delete':
                 self._delete_menu()
             elif action == 'help':
-                self._view_help('\\help_sub_msg.txt')
+                self._view_help('help_sub_msg.txt')
             elif action == 'back':
                 return
             else:
@@ -140,7 +140,7 @@ class ConsoleObjectMenu(TemplateMenu):
         pass
 
     def _view_help(self, help_path):
-        with open(os.path.dirname(__file__) + help_path, 'r') as f:
+        with open(os.path.join(os.path.dirname(__file__), help_path), 'r') as f:
             print(f.read().format(object=self.obj.name))
 
 
